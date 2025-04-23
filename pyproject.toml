@@ -1,0 +1,11 @@
+[project]
+name = "pronin-test"
+version = "0.1.0"
+description = "Test for pronin-team"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.2",
+    "djangorestframework>=3.16.0",
+    "python-dotenv>=1.1.0",
+]
