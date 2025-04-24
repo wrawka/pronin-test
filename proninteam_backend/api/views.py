@@ -1,5 +1,6 @@
 from rest_framework import viewsets, permissions
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from service.models import Collection, Payment
 from api.serializers import (
     CollectionSerializer,
@@ -7,6 +8,8 @@ from api.serializers import (
     CollectionCreateSerializer,
     PaymentCreateSerializer,
 )
+
+CACHE_LIFETIME = 60 * 5  # 5 minutes
 
 
 class CollectionViewSet(viewsets.ModelViewSet):
@@ -20,6 +23,14 @@ class CollectionViewSet(viewsets.ModelViewSet):
             return CollectionCreateSerializer
         return CollectionSerializer
 
+    @method_decorator(cache_page(CACHE_LIFETIME, cache="api"))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @method_decorator(cache_page(CACHE_LIFETIME, cache="api"))
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
 
 class PaymentViewSet(viewsets.ModelViewSet):
     """Донаты."""
@@ -31,3 +42,11 @@ class PaymentViewSet(viewsets.ModelViewSet):
         if self.action in ["create", "update", "partial_update"]:
             return PaymentCreateSerializer
         return PaymentSerializer
+
+    @method_decorator(cache_page(CACHE_LIFETIME, cache="api"))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @method_decorator(cache_page(CACHE_LIFETIME, cache="api"))
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
