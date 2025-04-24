@@ -49,7 +49,7 @@ class CollectionSerializer(serializers.ModelSerializer):
 class CollectionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ["name", "cause", "description", "author"]
+        fields = ["name", "cause", "description", "target_amount", "due_date", "cover_image", "author"]
         read_only_fields = ["author"]
 
     def create(self, validated_data):
