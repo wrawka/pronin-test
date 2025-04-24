@@ -175,3 +175,4 @@ cython_debug/
 
 # Local static files
 cover_images/
+staticfiles/
