@@ -19,6 +19,8 @@ services:
       context: .
     command: ["make", "celery-start"]
     env_file: ./proninteam_backend/.env
+    volumes:
+      - ./proninteam_backend:/app/proninteam_backend
     depends_on:
       - db
       - redis
