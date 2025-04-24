@@ -32,7 +32,7 @@ class Command(BaseCommand):
 
         # Создание 10 сборов
         collections = []
-        for _ in range(10):
+        for _ in range(random.randint(50, 100)):
             collection = Collection.objects.create(
                 author=random.choice(users),
                 name=fake.sentence(nb_words=3),

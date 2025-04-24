@@ -176,3 +176,6 @@ cython_debug/
 # Local static files
 cover_images/
 staticfiles/
+
+# macOS stuff
+.DS_Store
