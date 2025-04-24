@@ -7,6 +7,8 @@
 ![](https://img.shields.io/badge/Redis-red)
 ![](https://img.shields.io/badge/uv-violet)
 ![](https://img.shields.io/badge/ruff-green)
+![](https://img.shields.io/badge/celery-lightgreen)
+![](https://img.shields.io/badge/whitenoise-4.9-white)
 
 ### Запуск
 ```docker compose up```
