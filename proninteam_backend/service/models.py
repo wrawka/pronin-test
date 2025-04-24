@@ -10,7 +10,7 @@ class Payment(models.Model):
 
     user = models.ForeignKey(User, verbose_name="Донатер", on_delete=models.CASCADE)
     amount = models.DecimalField(verbose_name="Сумма", max_digits=10, decimal_places=2)
-    date = models.DateTimeField(verbose_name="Дата", auto_now_add=True)
+    date = models.DateTimeField(verbose_name="Дата и время доната", auto_now_add=True)
     collection = models.ForeignKey(
         "Collection",
         verbose_name="Сбор",
@@ -42,19 +42,13 @@ class Collection(models.Model):
         BIRTHDAY = "BD", "День рождения"
         FUNERAL = "FN", "Похороны"
 
-    author = models.ForeignKey(
-        User, verbose_name="Автор сбора", on_delete=models.SET_NULL, null=True
-    )
+    author = models.ForeignKey(User, verbose_name="Автор сбора", on_delete=models.SET_NULL, null=True)
     name = models.CharField(verbose_name="Название", max_length=255)
     description = models.TextField(verbose_name="Описание", blank=True)
-    cause = models.CharField(
-        verbose_name="Повод", max_length=255, choices=Causes.choices
-    )
-    target_amount = models.DecimalField(
-        verbose_name="Цель", max_digits=10, decimal_places=2
-    )
+    cause = models.CharField(verbose_name="Повод", max_length=255, choices=Causes.choices)
+    target_amount = models.DecimalField(verbose_name="Цель", max_digits=10, decimal_places=2)
     cover_image = models.ImageField(verbose_name="Обложка", upload_to="cover_images/")
-    due_date = models.DateField(verbose_name="Дата завершения", null=True, blank=True)
+    due_date = models.DateTimeField(verbose_name="Дата и время завершения", null=True, blank=True)
 
     class Meta:
         verbose_name = "Сбор"
