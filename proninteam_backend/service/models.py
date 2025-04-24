@@ -19,6 +19,17 @@ class Payment(models.Model):
     )
     is_hidden = models.BooleanField(verbose_name="Сумма скрыта", default=False)
 
+    class Meta:
+        verbose_name = "Донат"
+        verbose_name_plural = "Донаты"
+        ordering = ["-date"]
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(amount__gt=0),
+                name="amount_positive",
+            ),
+        ]
+
     def __str__(self):
         return f"({self.date}) Донат на {self.amount} от {self.user.username}"
 
@@ -43,9 +54,18 @@ class Collection(models.Model):
         verbose_name="Цель", max_digits=10, decimal_places=2
     )
     cover_image = models.ImageField(verbose_name="Обложка", upload_to="cover_images/")
-    due_date = models.DateTimeField(
-        verbose_name="Дата завершения", null=True, blank=True
-    )
+    due_date = models.DateField(verbose_name="Дата завершения", null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Сбор"
+        verbose_name_plural = "Сборы"
+        ordering = ["-due_date"]
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(target_amount__gt=0),
+                name="target_amount_positive",
+            ),
+        ]
 
     def __str__(self):
         return f"Сбор от {self.author.username} на {self.name} ({self.cause})"

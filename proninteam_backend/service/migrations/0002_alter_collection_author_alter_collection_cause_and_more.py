@@ -6,71 +6,98 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('service', '0001_initial'),
+        ("service", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='collection',
-            name='author',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='Автор сбора'),
+            model_name="collection",
+            name="author",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Автор сбора",
+            ),
         ),
         migrations.AlterField(
-            model_name='collection',
-            name='cause',
-            field=models.CharField(choices=[('WD', 'Свадьба'), ('BD', 'День рождения'), ('FN', 'Похороны')], max_length=255, verbose_name='Повод'),
+            model_name="collection",
+            name="cause",
+            field=models.CharField(
+                choices=[
+                    ("WD", "Свадьба"),
+                    ("BD", "День рождения"),
+                    ("FN", "Похороны"),
+                ],
+                max_length=255,
+                verbose_name="Повод",
+            ),
         ),
         migrations.AlterField(
-            model_name='collection',
-            name='cover_image',
-            field=models.ImageField(upload_to='cover_images/', verbose_name='Обложка'),
+            model_name="collection",
+            name="cover_image",
+            field=models.ImageField(upload_to="cover_images/", verbose_name="Обложка"),
         ),
         migrations.AlterField(
-            model_name='collection',
-            name='description',
-            field=models.TextField(blank=True, verbose_name='Описание'),
+            model_name="collection",
+            name="description",
+            field=models.TextField(blank=True, verbose_name="Описание"),
         ),
         migrations.AlterField(
-            model_name='collection',
-            name='due_date',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Дата завершения'),
+            model_name="collection",
+            name="due_date",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="Дата завершения"
+            ),
         ),
         migrations.AlterField(
-            model_name='collection',
-            name='name',
-            field=models.CharField(max_length=255, verbose_name='Название'),
+            model_name="collection",
+            name="name",
+            field=models.CharField(max_length=255, verbose_name="Название"),
         ),
         migrations.AlterField(
-            model_name='collection',
-            name='target_amount',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Цель'),
+            model_name="collection",
+            name="target_amount",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Цель"
+            ),
         ),
         migrations.AlterField(
-            model_name='payment',
-            name='amount',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Сумма'),
+            model_name="payment",
+            name="amount",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Сумма"
+            ),
         ),
         migrations.AlterField(
-            model_name='payment',
-            name='collection',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='payments', to='service.collection', verbose_name='Сбор'),
+            model_name="payment",
+            name="collection",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="payments",
+                to="service.collection",
+                verbose_name="Сбор",
+            ),
         ),
         migrations.AlterField(
-            model_name='payment',
-            name='date',
-            field=models.DateTimeField(auto_now_add=True, verbose_name='Дата'),
+            model_name="payment",
+            name="date",
+            field=models.DateTimeField(auto_now_add=True, verbose_name="Дата"),
         ),
         migrations.AlterField(
-            model_name='payment',
-            name='is_hidden',
-            field=models.BooleanField(default=False, verbose_name='Сумма скрыта'),
+            model_name="payment",
+            name="is_hidden",
+            field=models.BooleanField(default=False, verbose_name="Сумма скрыта"),
         ),
         migrations.AlterField(
-            model_name='payment',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Донатер'),
+            model_name="payment",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Донатер",
+            ),
         ),
     ]
