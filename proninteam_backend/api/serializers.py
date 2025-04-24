@@ -3,6 +3,13 @@ from rest_framework import serializers
 from service.models import Collection, Payment
 
 
+def validate_positive(value):
+    """Проверка на положительное значение."""
+    if value <= 0:
+        raise serializers.ValidationError("Значение должно быть положительным.")
+    return value
+
+
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
@@ -19,6 +26,10 @@ class PaymentCreateSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         validated_data["user"] = user
         return super().create(validated_data)
+
+    def validate_amount(self, value):
+        """Проверка на положительное значение суммы."""
+        return validate_positive(value)
 
 
 class PaymentPreviewSerializer(serializers.ModelSerializer):
@@ -56,3 +67,7 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
         author = self.context["request"].user
         validated_data["author"] = author
         return super().create(validated_data)
+
+    def validate_target_amount(self, value):
+        """Проверка на положительное значение целевой суммы."""
+        return validate_positive(value)
