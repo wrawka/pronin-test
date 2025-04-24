@@ -16,3 +16,7 @@ django-prod-server:
 	uv run gunicorn --bind 0.0.0.0:8000 config.wsgi:application
 
 django-start: django-migrate django-test-data django-static-collect django-prod-server
+
+celery-start:
+	cd proninteam_backend && \
+	uv run celery -A config worker --loglevel=info

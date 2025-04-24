@@ -6,6 +6,6 @@ class ServiceConfig(AppConfig):
     name = "service"
 
     def ready(self):
-        from . import signals  # noqa
+        import service.signals  # noqa
 
         pass

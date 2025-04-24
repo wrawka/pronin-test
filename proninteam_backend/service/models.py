@@ -47,7 +47,7 @@ class Collection(models.Model):
     description = models.TextField(verbose_name="Описание", blank=True)
     cause = models.CharField(verbose_name="Повод", max_length=255, choices=Causes.choices)
     target_amount = models.DecimalField(verbose_name="Цель", max_digits=10, decimal_places=2)
-    cover_image = models.ImageField(verbose_name="Обложка", upload_to="cover_images/")
+    cover_image = models.ImageField(verbose_name="Обложка", upload_to="cover_images/", null=True, blank=True)
     due_date = models.DateTimeField(verbose_name="Дата и время завершения", null=True, blank=True)
 
     class Meta:
