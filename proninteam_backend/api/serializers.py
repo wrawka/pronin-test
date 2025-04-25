@@ -1,6 +1,9 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
 from service.models import Collection, Payment
+
+User = get_user_model()
 
 
 def validate_positive(value):
@@ -71,3 +74,10 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
     def validate_target_amount(self, value):
         """Проверка на положительное значение целевой суммы."""
         return validate_positive(value)
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "first_name", "last_name", "email"]
+        read_only_fields = ["id", "username", "email"]

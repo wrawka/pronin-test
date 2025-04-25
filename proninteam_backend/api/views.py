@@ -1,5 +1,7 @@
 from rest_framework import viewsets, permissions
 from django.utils.decorators import method_decorator
+from django.contrib.auth import get_user_model
+
 from django.views.decorators.cache import cache_page
 from service.models import Collection, Payment
 from api.serializers import (
@@ -7,7 +9,10 @@ from api.serializers import (
     PaymentSerializer,
     CollectionCreateSerializer,
     PaymentCreateSerializer,
+    UserSerializer,
 )
+
+User = get_user_model()
 
 CACHE_LIFETIME = 60 * 5  # 5 minutes
 
@@ -52,3 +57,12 @@ class PaymentViewSet(viewsets.ModelViewSet):
     @method_decorator(cache_page(CACHE_LIFETIME, cache="api"))
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """Пользователи."""
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    filterset_fields = ["username", "email"]
