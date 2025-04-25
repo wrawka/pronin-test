@@ -17,6 +17,7 @@ class CollectionViewSet(viewsets.ModelViewSet):
 
     queryset = Collection.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    filterset_fields = ["author", "cause"]
 
     def get_serializer_class(self):
         if self.action in ["create", "update", "partial_update"]:
@@ -37,6 +38,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
     queryset = Payment.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    filterset_fields = ["collection", "user"]
 
     def get_serializer_class(self):
         if self.action in ["create", "update", "partial_update"]:
